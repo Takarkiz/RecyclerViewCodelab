@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">coroutine1</string>
+    <string name="app_name">ToDo</string>
     <string name="reset_title">リセット</string>
 </resources>

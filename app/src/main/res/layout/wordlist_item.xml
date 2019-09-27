@@ -3,11 +3,16 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="6dp">
+    android:orientation="horizontal"
+    android:padding="12dp">
+
+    <androidx.appcompat.widget.AppCompatCheckBox
+        android:id="@+id/checkbox"
+        style="@style/check_box_style" />
 
     <TextView
         android:id="@+id/word"
+        android:text="サンプル"
         style="@style/word_title" />
 
 
