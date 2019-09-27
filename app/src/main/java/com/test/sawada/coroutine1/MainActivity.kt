@@ -2,39 +2,64 @@ package com.test.sawada.coroutine1
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.wordlist_item.*
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
-    var wordList: LinkedList<String> = LinkedList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        for (i in 0..20) {
-            wordList.addLast("Word" + i)
-        }
+        reset()
+    }
 
-        recycleView = findViewById(R.id.recycler_view)
-        adapter = WordListAdapter(this, wordList)
-        recycleView?.adapter = adapter
-        recycleView?.layoutManager = LinearLayoutManager(this)
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val inflater: MenuInflater = menuInflater
+        inflater.inflate(R.menu.main_menu, menu)
+        return true
+    }
 
-        val fab = findViewById<FloatingActionButton>(R.id.fab)
-        fab.setOnClickListener {
-            val wordListSize = wordList.size
-            wordList.addLast("+ Word" + wordListSize)
-            recycleView?.adapter?.notifyItemInserted(wordListSize)
-            recycleView?.smoothScrollToPosition(wordListSize)
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // Handle item selection
+        return when (item.itemId) {
+            R.id.reset -> {
+                reset()
+                true
+            }
+
+            else -> super.onOptionsItemSelected(item)
         }
     }
 
     private var recycleView: RecyclerView? = null
     private var adapter: WordListAdapter? = null
+
+    private fun reset() {
+        val words: LinkedList<String> = LinkedList()
+
+        for (i in 0..20) {
+            words.addLast("Word" + i)
+        }
+
+        recycleView = findViewById(R.id.recycler_view)
+        adapter = null
+        adapter = WordListAdapter(this, words)
+        recycleView?.adapter = adapter
+        recycleView?.layoutManager = LinearLayoutManager(this)
+
+        val fab = findViewById<FloatingActionButton>(R.id.fab)
+        fab.setOnClickListener {
+            val wordListSize = words.size
+            words.addLast("+ Word" + wordListSize)
+            recycleView?.adapter?.notifyItemInserted(wordListSize)
+            recycleView?.smoothScrollToPosition(wordListSize)
+        }
+    }
 }

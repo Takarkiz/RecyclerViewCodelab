@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">coroutine1</string>
+    <string name="reset_title">リセット</string>
 </resources>
